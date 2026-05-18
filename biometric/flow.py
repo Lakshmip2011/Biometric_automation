@@ -44,11 +44,13 @@ def run(playwright):
     page.wait_for_timeout(2000)
 
     # ---------------- FILTERS ----------------
-    page.get_by_role("listitem").filter(has_text="Position").click(force=True)
-    page.get_by_role("listitem").filter(has_text="Position").click(force=True)
-    page.locator("#firstInLastOutReport-tree-position_9_check").click()
+    page.wait_for_timeout(3000)
 
-    page.wait_for_timeout(2000)
+    position = page.get_by_text("Position")
+    position.scroll_into_view_if_needed()
+    position.click(force=True)
+
+    page.locator("#firstInLastOutReport-tree-position_9_check").click()
 
     # ---------------- DATE INPUT ----------------
     page.locator("#firstInLastOutReport-start-date").fill(start_date)
