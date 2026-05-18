@@ -44,8 +44,8 @@ def run(playwright):
     page.wait_for_timeout(2000)
 
     # ---------------- FILTERS ----------------
-    page.get_by_role("listitem").filter(has_text="Position").click()
-    page.get_by_role("listitem").filter(has_text="Position").click()
+    page.get_by_role("listitem").filter(has_text="Position").click(force=True)
+    page.get_by_role("listitem").filter(has_text="Position").click(force=True)
     page.locator("#firstInLastOutReport-tree-position_9_check").click()
 
     page.wait_for_timeout(2000)
