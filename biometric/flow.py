@@ -1,14 +1,5 @@
 import re
 import os
-from datetime import datetime
-from playwright.sync_api import Playwright, sync_playwright
-
-
-def run(playwright: Playwright) -> None:
-    # -------- TAKE INPUT FROM USER --------
-    # start_date = input("Enter start date (format: YYYY-MM-DD, e.g. 2026-04-26): ")
-    # end_date = input("Enter end date (format: YYYY-MM-DD, e.g. 2026-04-30): ")
-
 from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright
 
@@ -16,14 +7,12 @@ from playwright.sync_api import sync_playwright
 def run(playwright):
     print("Running automation...")
 
-    #  automatic dates (NO input)
+    # ✅ automatic dates (NO input)
     end_date = datetime.today().strftime('%Y-%m-%d')
     start_date = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
 
     print("Start Date:", start_date)
     print("End Date:", end_date)
-
-    # 👉 your existing logic continues here
 
     browser = playwright.chromium.launch(headless=False)
 
@@ -51,11 +40,6 @@ def run(playwright):
     page.locator("li").filter(has_text=re.compile(r"^First In Last Out$")).click()
 
     page.locator("#firstInLastOutReport-dept-tree-control").get_by_title("Select All").click()
-
-    page.wait_for_timeout(2000)
-
-    # Optional zoom
-    page.evaluate("document.body.style.zoom='65%'")
 
     page.wait_for_timeout(2000)
 
@@ -93,7 +77,7 @@ def run(playwright):
     os.makedirs(download_dir, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    file_name = f"First In Last Out Report_{timestamp}.xlsx"
+    file_name = f"First_In_Last_Out_Report_{timestamp}.xlsx"
     file_path = os.path.join(download_dir, file_name)
 
     download.save_as(file_path)
@@ -102,10 +86,11 @@ def run(playwright):
 
     page1.close()
 
-    # ---------------- CLOSE ----------------
     context.close()
     browser.close()
 
 
-with sync_playwright() as playwright:
-    run(playwright)
+# ✅ Proper entry point (important for Jenkins)
+if __name__ == "__main__":
+    with sync_playwright() as playwright:
+        run(playwright)
