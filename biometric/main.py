@@ -14,9 +14,10 @@ if __name__ == '__main__':
     print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-from flow import *
+from flow import run
+from playwright.sync_api import sync_playwright
 
-if __name__ == "__main__":
-    print("Starting Biometric Automation...")
-    # call your actual function here
-    run()   # or whatever function exists in flow.py
+print("Starting Biometric Automation...")
+
+with sync_playwright() as playwright:
+    run(playwright)
