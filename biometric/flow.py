@@ -33,8 +33,8 @@ def run(playwright):
     page.wait_for_selector("input[name='username']", timeout=30000)
 
     # fill login
-    page.locator("input[name='username']").fill("admin")
-    page.locator("input[name='password']").fill("admin")
+    page.get_by_placeholder("Username").fill("admin")
+    page.get_by_placeholder("Password").fill("admin")
 
     # click login
     page.locator("button[type='submit']").click()
