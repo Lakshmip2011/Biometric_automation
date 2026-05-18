@@ -44,13 +44,20 @@ def run(playwright):
     page.wait_for_timeout(2000)
 
     # ---------------- FILTERS ----------------
-    page.wait_for_timeout(3000)
+   # Wait for page to fully load
+    page.wait_for_load_state("networkidle")
 
-    position = page.get_by_text("Position")
+    # Better locator (target exact section)
+    position = page.locator("#firstInLastOutReport-tree-position_9_check")
+
+    # Wait until visible
+    position.wait_for(state="visible", timeout=10000)
+
+    # Scroll properly
     position.scroll_into_view_if_needed()
-    position.click(force=True)
 
-    page.locator("#firstInLastOutReport-tree-position_9_check").click()
+    # Force click (bypass overlay issue)
+    position.click(force=True)
 
     # ---------------- DATE INPUT ----------------
     page.locator("#firstInLastOutReport-start-date").fill(start_date)
