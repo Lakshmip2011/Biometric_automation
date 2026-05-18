@@ -6,8 +6,13 @@ from playwright.sync_api import Playwright, sync_playwright
 
 def run(playwright: Playwright) -> None:
     # -------- TAKE INPUT FROM USER --------
-    start_date = input("Enter start date (format: YYYY-MM-DD, e.g. 2026-04-26): ")
-    end_date = input("Enter end date (format: YYYY-MM-DD, e.g. 2026-04-30): ")
+    # start_date = input("Enter start date (format: YYYY-MM-DD, e.g. 2026-04-26): ")
+    # end_date = input("Enter end date (format: YYYY-MM-DD, e.g. 2026-04-30): ")
+
+from datetime import datetime, timedelta
+
+end_date = datetime.today().strftime('%Y-%m-%d')
+start_date = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
 
     browser = playwright.chromium.launch(headless=False)
 
