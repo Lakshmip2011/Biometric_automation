@@ -29,15 +29,20 @@ def run(playwright):
     # wait until page fully loads
     page.wait_for_load_state("networkidle")
 
-    # wait for username field explicitly
-    page.wait_for_selector("input[name='username']", timeout=30000)
+    # wait for login form
+    page.wait_for_selector("form", timeout=30000)
 
-    # fill login
-    page.get_by_placeholder("Username").fill("admin")
-    page.get_by_placeholder("Password").fill("admin")
+    # select ONLY the FIRST login form (admin form)
+    login_form = page.locator("form").nth(0)
 
-    # click login
-    page.locator("button[type='submit']").click()
+    # fill inside that form only
+    login_form.locator("input[name='username']").fill("admin")
+    login_form.locator("input[name='password']").fill("admin")
+
+    # click login inside that form
+    login_form.locator("button[type='submit']").click()
+
+    page.wait_for_load_state("networkidle")
 
     # ---------------- NAVIGATION ----------------
     page.get_by_role("link", name="Attendance", exact=True).click()
