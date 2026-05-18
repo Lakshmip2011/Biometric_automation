@@ -44,20 +44,16 @@ def run(playwright):
     page.wait_for_timeout(2000)
 
     # ---------------- FILTERS ----------------
-   # Wait for page to fully load
-    page.wait_for_load_state("networkidle")
+    # Expand Position section
+    page.locator("li:has-text('Position')").first.click()
 
-    # Better locator (target exact section)
-    position = page.locator("#firstInLastOutReport-tree-position_9_check")
+    page.wait_for_timeout(2000)
 
-    # Wait until visible
-    position.wait_for(state="visible", timeout=10000)
+    # Select checkbox inside it
+    position_checkbox = page.locator("#firstInLastOutReport-tree-position_9_check")
 
-    # Scroll properly
-    position.scroll_into_view_if_needed()
-
-    # Force click (bypass overlay issue)
-    position.click(force=True)
+    position_checkbox.wait_for(state="attached")
+    position_checkbox.click(force=True)
 
     # ---------------- DATE INPUT ----------------
     page.locator("#firstInLastOutReport-start-date").fill(start_date)
