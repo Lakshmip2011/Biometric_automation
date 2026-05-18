@@ -14,7 +14,7 @@ def run(playwright):
     print("Start Date:", start_date)
     print("End Date:", end_date)
 
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
 
     # Enable downloads
     context = browser.new_context(accept_downloads=True)
