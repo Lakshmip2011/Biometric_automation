@@ -20,27 +20,22 @@ def run(playwright):
     context = browser.new_context(accept_downloads=True)
     page = context.new_page()
 
-     # ---------------- LOGIN ----------------
+   # ---------------- LOGIN ----------------
 
     page.goto("http://192.168.1.109:8081/", wait_until="domcontentloaded")
     print("Page URL:", page.url)
 
-    # wait for login form fields
+    # wait for username
     page.wait_for_selector("input[name='username']", timeout=30000)
 
     # fill credentials
     page.locator("input[name='username']").first.fill("admin")
     page.locator("input[name='password']").first.fill("admin")
 
-    # wait explicitly for visible button
-    login_button = page.locator("button[type='submit']:visible")
+    # 🔥 CLICK ANY SUBMIT (button OR input)
+    page.locator("button[type='submit'], input[type='submit']").first.click(force=True)
 
-    login_button.wait_for(state="visible", timeout=30000)
-    page.screenshot(path="before_click.png")
-    # force click (important for Jenkins/headless)
-    login_button.first.click(force=True)
-
-    # wait for navigation after login
+    # wait after login
     page.wait_for_load_state("networkidle")
     # ---------------- NAVIGATION ----------------
     page.get_by_role("link", name="Attendance", exact=True).click()
