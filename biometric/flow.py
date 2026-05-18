@@ -21,7 +21,7 @@ def run(playwright):
     page = context.new_page()
 
     # ---------------- LOGIN ----------------
-    page.goto("http://localhost:8080/login/?next=/", timeout=15000)
+    page.goto("http://192.168.1.1:8080/login/?next=/", timeout=30000)
     page.get_by_role("textbox", name="Username").fill("admin")
     page.get_by_role("textbox", name="Password").fill("admin")
     page.get_by_role("button", name="Login").click()
