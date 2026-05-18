@@ -22,7 +22,7 @@ def run(playwright):
 
     # ---------------- LOGIN ----------------
 
-    page.goto("http://localhost:8080/login/?next=/", timeout=60000)
+    page.goto("http://192.168.1.109:8081/", wait_until="networkidle")
     print("Page URL:", page.url)
     page.screenshot(path="debug_login.png")
 
