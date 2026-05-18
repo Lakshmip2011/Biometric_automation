@@ -45,7 +45,28 @@ def run(playwright):
 
     # ---------------- FILTERS ----------------
     # Expand Position section
-    page.locator("li:has-text('Position')").first.click()
+    # Wait for tree container
+    page.wait_for_selector("#firstInLastOutReport-tree", timeout=15000)
+
+    # Expand ALL nodes (IMPORTANT)
+    expand_buttons = page.locator(".button.switch")  # tree expand arrows
+    count = expand_buttons.count()
+
+    for i in range(count):
+        try:
+            expand_buttons.nth(i).click()
+        except:
+            pass  # ignore already expanded
+
+    page.wait_for_timeout(2000)
+
+    # Now click the checkbox properly
+    position = page.locator("#firstInLastOutReport-tree-position_9_check")
+
+    position.wait_for(state="attached", timeout=10000)
+
+    # Use JS click (bypass hidden overlay issue)
+    page.evaluate("(el) => el.click()", position)
 
     page.wait_for_timeout(2000)
 
