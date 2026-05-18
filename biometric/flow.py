@@ -21,12 +21,23 @@ def run(playwright):
     page = context.new_page()
 
     # ---------------- LOGIN ----------------
-    page.goto("http://localhost:8080/login/?next=/", timeout=30000)
-    page.get_by_role("textbox", name="Username").fill("admin")
-    page.get_by_role("textbox", name="Password").fill("admin")
-    page.get_by_role("button", name="Login").click()
 
-    page.wait_for_timeout(2000)
+    page.goto("http://localhost:8080/login/?next=/", timeout=60000)
+    print("Page URL:", page.url)
+    page.screenshot(path="debug_login.png")
+
+    # wait until page fully loads
+    page.wait_for_load_state("networkidle")
+
+    # wait for username field explicitly
+    page.wait_for_selector("input[name='username']", timeout=30000)
+
+    # fill login
+    page.locator("input[name='username']").fill("admin")
+    page.locator("input[name='password']").fill("admin")
+
+    # click login
+    page.locator("button[type='submit']").click()
 
     # ---------------- NAVIGATION ----------------
     page.get_by_role("link", name="Attendance", exact=True).click()
