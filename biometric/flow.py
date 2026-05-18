@@ -29,18 +29,15 @@ def run(playwright):
     # wait until page fully loads
     page.wait_for_load_state("networkidle")
 
-    # wait for login form
-    page.wait_for_selector("form", timeout=30000)
+    # wait for username field (admin one)
+    page.wait_for_selector("#id_username", timeout=30000)
 
-    # select ONLY the FIRST login form (admin form)
-    login_form = page.locator("form").nth(0)
+    # fill admin login (use ID - safest)
+    page.locator("#id_username").fill("admin")
+    page.locator("#id_password").fill("admin")
 
-    # fill inside that form only
-    login_form.locator("input[name='username']").fill("admin")
-    login_form.locator("input[name='password']").fill("admin")
-
-    # click login inside that form
-    login_form.locator("button[type='submit']").click()
+    # click login button (more reliable)
+    page.locator("button:has-text('Login')").click()
 
     page.wait_for_load_state("networkidle")
 
