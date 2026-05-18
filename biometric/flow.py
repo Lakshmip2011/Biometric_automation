@@ -36,7 +36,7 @@ def run(playwright):
     login_button = page.locator("button[type='submit']:visible")
 
     login_button.wait_for(state="visible", timeout=30000)
-
+    page.screenshot(path="before_click.png")
     # force click (important for Jenkins/headless)
     login_button.first.click(force=True)
 
