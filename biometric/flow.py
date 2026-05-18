@@ -22,7 +22,7 @@ def run(playwright):
 
     # ---------------- LOGIN ----------------
 
-    page.goto("http://127.0.0.1:8081/", wait_until="networkidle")
+    page.goto("http://192.168.1.109:8081/", wait_until="networkidle")
     print("Page URL:", page.url)
     page.screenshot(path="debug_login.png")
 
@@ -30,11 +30,12 @@ def run(playwright):
     page.wait_for_load_state("networkidle")
 
     # wait for username field (admin one)
-    page.wait_for_selector("#id_username", timeout=30000)
+    page.wait_for_selector("input[name='username']", timeout=30000)
 
     # fill admin login (use ID - safest)
-    page.locator("#id_username").fill("admin")
-    page.locator("#id_password").fill("admin")
+    page.locator("input[name='username']").first.fill("admin")
+    page.locator("input[name='password']").first.fill("admin")
+    page.locator("button[type='submit']").first.click()
 
     # click login button (more reliable)
     page.locator("button:has-text('Login')").click()
