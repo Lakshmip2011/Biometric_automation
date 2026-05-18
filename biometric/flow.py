@@ -10,9 +10,20 @@ def run(playwright: Playwright) -> None:
     # end_date = input("Enter end date (format: YYYY-MM-DD, e.g. 2026-04-30): ")
 
 from datetime import datetime, timedelta
+from playwright.sync_api import sync_playwright
 
-end_date = datetime.today().strftime('%Y-%m-%d')
-start_date = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
+
+def run(playwright):
+    print("Running automation...")
+
+    #  automatic dates (NO input)
+    end_date = datetime.today().strftime('%Y-%m-%d')
+    start_date = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
+
+    print("Start Date:", start_date)
+    print("End Date:", end_date)
+
+    # 👉 your existing logic continues here
 
     browser = playwright.chromium.launch(headless=False)
 
