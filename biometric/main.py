@@ -14,3 +14,9 @@ if __name__ == '__main__':
     print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+from flow import *
+
+if __name__ == "__main__":
+    print("Starting Biometric Automation...")
+    # call your actual function here
+    run()   # or whatever function exists in flow.py
