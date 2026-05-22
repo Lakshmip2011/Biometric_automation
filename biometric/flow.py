@@ -1,15 +1,14 @@
 import re
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from playwright.sync_api import Playwright, sync_playwright
 
 
 def run(playwright: Playwright) -> None:
-    # -------- TAKE INPUT FROM USER --------
-       import sys
-
-    start_date = sys.argv[1]
-    end_date = sys.argv[2]
+    # -------- AUTO SET YESTERDAY DATE --------
+    yesterday = datetime.now() - timedelta(days=1)
+    start_date = yesterday.strftime("%Y-%m-%d")
+    end_date = yesterday.strftime("%Y-%m-%d")
 
     browser = playwright.chromium.launch(headless=False)
 
