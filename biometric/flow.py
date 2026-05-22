@@ -6,8 +6,10 @@ from playwright.sync_api import Playwright, sync_playwright
 
 def run(playwright: Playwright) -> None:
     # -------- TAKE INPUT FROM USER --------
-    start_date = input("Enter start date (format: YYYY-MM-DD, e.g. 2026-04-26): ")
-    end_date = input("Enter end date (format: YYYY-MM-DD, e.g. 2026-04-30): ")
+       import sys
+
+    start_date = sys.argv[1]
+    end_date = sys.argv[2]
 
     browser = playwright.chromium.launch(headless=False)
 
