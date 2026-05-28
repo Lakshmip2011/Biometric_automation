@@ -56,15 +56,38 @@ def run(playwright: Playwright) -> None:
     page.locator("#dailyAttendanceReport-start-date").fill(start_date)
     page.locator("#dailyAttendanceReport-end-date").fill(end_date)
 
+
+
+
+
+
+
+
+
+
     page.wait_for_timeout(2000)
 
     # ---------------- SEARCH + EXPORT ----------------
     page.locator(".button-3d.dailyAttendanceReport-search").click()
+
+
+
+
     page.locator(".fa.fa-fw.fa-share").click()
     page.get_by_text("Excel Export").click()
     page.get_by_text("").click()
 
     page.wait_for_timeout(2000)
+
+    # -------- SELECT EMPLOYEE WISE --------
+    page.locator(".layui-layer-content input.layui-input").click()
+
+
+    # Select Employee Wise
+    page.locator("//dd[normalize-space()='Employee Wise']").click()
+
+
+
 
     # ---------------- DOWNLOAD ----------------
     with page.expect_download() as download_info:
