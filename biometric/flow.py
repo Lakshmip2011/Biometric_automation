@@ -79,7 +79,7 @@ def run(playwright: Playwright) -> None:
     os.makedirs(download_dir, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    file_name = f"First In Last Out Report_{timestamp}.xlsx"
+    file_name = f"Daily Attendance Report_{timestamp}.xlsx"
     file_path = os.path.join(download_dir, file_name)
 
     download.save_as(file_path)
