@@ -36,7 +36,7 @@ def run(playwright: Playwright) -> None:
     #page.locator("li").filter(has_text=re.compile(r"^First In Last Out$")).click()
     page.locator(".report-box").filter(has_text="Daily Attendance").click()
 
-    page.locator("#firstInLastOutReport-dept-tree-control").get_by_title("Select All").click()
+    page.locator("#dailyAttendanceReport-dept-tree-control").get_by_title("Select All").click()
 
     page.wait_for_timeout(2000)
 
@@ -48,18 +48,18 @@ def run(playwright: Playwright) -> None:
     # ---------------- FILTERS ----------------
     page.get_by_role("listitem").filter(has_text="Position").click()
     page.get_by_role("listitem").filter(has_text="Position").click()
-    page.locator("#firstInLastOutReport-tree-position_9_check").click()
+    page.locator("#dailyAttendanceReport-tree-position_9_check").click()
 
     page.wait_for_timeout(2000)
 
     # ---------------- DATE INPUT ----------------
-    page.locator("#firstInLastOutReport-start-date").fill(start_date)
-    page.locator("#firstInLastOutReport-end-date").fill(end_date)
+    page.locator("#dailyAttendanceReport-start-date").fill(start_date)
+    page.locator("#dailyAttendanceReport-end-date").fill(end_date)
 
     page.wait_for_timeout(2000)
 
     # ---------------- SEARCH + EXPORT ----------------
-    page.locator(".button-3d.firstInLastOutReport-search > .fa").click()
+    page.locator(".button-3d.dailyAttendanceReport-search").click()
     page.locator(".fa.fa-fw.fa-share").click()
     page.get_by_text("Excel Export").click()
     page.get_by_text("").click()
