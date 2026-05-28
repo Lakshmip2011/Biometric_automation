@@ -33,7 +33,8 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("button", name="calculate").click()
 
     page.get_by_role("link", name="Reports", exact=True).click()
-    page.locator("li").filter(has_text=re.compile(r"^First In Last Out$")).click()
+    #page.locator("li").filter(has_text=re.compile(r"^First In Last Out$")).click()
+    page.locator(".report-box").filter(has_text="Daily Attendance").click()
 
     page.locator("#firstInLastOutReport-dept-tree-control").get_by_title("Select All").click()
 
